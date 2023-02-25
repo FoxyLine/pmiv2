@@ -3,19 +3,19 @@ from tkinter import messagebox
 from math import pi, e, sin, cos, tan, log, log2, log10, factorial
 
 window = Tk()
-screenSize = "279x670"
+screenSize = "290x800"
 window.geometry(screenSize)
 window.resizable(0, 0)
-window.title("Calcualtor")
+window.title("Calculator")
 
 
 # function
 def about():
     messagebox.showinfo(
         "About",
-        "Бульбулятор 1.0"
-"\n"
-"© Правая палочка Твикс (ФГБОУ ВО «МАГУ»), 2023."
+        "Калькулятор 1.0"
+        "\n"
+        "© Правая палочка Твикс (ФГБОУ ВО «МАГУ»), 2023."
     )
 
 
@@ -358,37 +358,39 @@ equals = Button(
 ).grid(row=4, column=3, padx=1, pady=1)
 
 
-# bracket1 = PhotoImage(file = r"images\bracket1.png")
-# bracket1image = bracket1.subsample(4,4)
+sqr_btn = PhotoImage(file = r"images\pow_2_btn.png")
+sqr_btnimage = sqr_btn.subsample(4,4)
 sqr_btn = Button(
     mainFrame,
     text="X²",
     fg="white",
-    # image=bracket1image,
+    image=sqr_btnimage,
     bd=0,
     bg="black",
     cursor="hand2",
     command=lambda: evalute("**2"),
 ).grid(row=5, column=0, padx=1, pady=1)
 
-
+sqrt_btn = PhotoImage(file=r"images\sqrt_btn.png")
+sqrt_btnimage = sqrt_btn.subsample(4, 4)
 sqrt_btn = Button(
     mainFrame,
     text="√",
     fg="white",
-    # image=bracket1image,
+    image=sqrt_btnimage,
     bd=0,
     bg="black",
     cursor="hand2",
     command=lambda: evalute("**.5"),
 ).grid(row=5, column=1, padx=1, pady=1)
 
-
+change_sign = PhotoImage(file=r"images\plus_minus_btn.png")
+change_sign_btnimage = change_sign.subsample(4, 4)
 change_sign = Button(
     mainFrame,
     text="*-1",
     fg="white",
-    # image=bracket1image,
+    image=change_sign_btnimage,
     bd=0,
     bg="black",
     cursor="hand2",
@@ -453,13 +455,13 @@ log_btn = Button(
 log_btn.grid(row=7, column=3, padx=1, pady=1)
 
 
-# log_btn = PhotoImage(file=r"images\log_btn.png")
-# log_btnimage = log_btn.subsample(4, 4)
+pow_y = PhotoImage(file=r"images\pow_y_btn.png")
+pow_y_btnimage = pow_y.subsample(4, 4)
 pow_y = Button(
     mainFrame,
     text="x^y",
     fg="white",
-    # image=log_btnimage,
+    image=pow_y_btnimage,
     bd=0,
     bg="black",
     cursor="hand2",
@@ -467,12 +469,13 @@ pow_y = Button(
 )
 pow_y.grid(row=8, column=0, padx=1, pady=1)
 
-
+log_btn2 = PhotoImage(file=r"images\log2_btn.png")
+log2_btnimage = log_btn2.subsample(4, 4)
 btn_log2_ = Button(
     mainFrame,
     text="log2",
     fg="white",
-    # image=log_btnimage,
+    image=log2_btnimage,
     bd=0,
     bg="black",
     cursor="hand2",
@@ -480,12 +483,13 @@ btn_log2_ = Button(
 )
 btn_log2_.grid(row=8, column=1, padx=1, pady=1)
 
-
+log_btn10 = PhotoImage(file=r"images\log10_btn.png")
+log10_btnimage = log_btn10.subsample(4, 4)
 btn_log10_ = Button(
     mainFrame,
     text="log10",
     fg="white",
-    # image=log_btnimage,
+    image=log10_btnimage,
     bd=0,
     bg="black",
     cursor="hand2",
@@ -493,12 +497,13 @@ btn_log10_ = Button(
 )
 btn_log10_.grid(row=8, column=2, padx=1, pady=1)
 
-
+abs_ = PhotoImage(file=r"images\abs_btn.png")
+absimage = abs_.subsample(4, 4)
 btn_abs = Button(
     mainFrame,
     text="abs",
     fg="white",
-    # image=log_btnimage,
+    image=absimage,
     bd=0,
     bg="black",
     cursor="hand2",
@@ -506,12 +511,13 @@ btn_abs = Button(
 )
 btn_abs.grid(row=8, column=3, padx=1, pady=1)
 
-
+fact_ = PhotoImage(file=r"images\factorial_btn.png")
+factimage = fact_.subsample(4, 4)
 bnt_fact = Button(
     mainFrame,
     text="X!",
     fg="white",
-    # image=log_btnimage,
+    image=factimage,
     bd=0,
     bg="black",
     cursor="hand2",
@@ -519,12 +525,13 @@ bnt_fact = Button(
 )
 bnt_fact.grid(row=9, column=0, padx=1, pady=1)
 
-
+bin_ = PhotoImage(file=r"images\bin_btn.png")
+binimage = bin_.subsample(4, 4)
 btn_bin = Button(
     mainFrame,
     text="bin",
     fg="white",
-    # image=log_btnimage,
+    image=binimage,
     bd=0,
     bg="black",
     cursor="hand2",
@@ -532,12 +539,13 @@ btn_bin = Button(
 )
 btn_bin.grid(row=9, column=1, padx=1, pady=1)
 
-
+oct_ = PhotoImage(file=r"images\oct_btn.png")
+octimage = oct_.subsample(4, 4)
 btn_oct = Button(
     mainFrame,
     text="oct",
     fg="white",
-    # image=log_btnimage,
+    image=octimage,
     bd=0,
     bg="black",
     cursor="hand2",
@@ -545,12 +553,13 @@ btn_oct = Button(
 )
 btn_oct.grid(row=9, column=2, padx=1, pady=1)
 
-
+hex_ = PhotoImage(file=r"images\hex_btn.png")
+heximage = hex_.subsample(4, 4)
 btn_hex = Button(
     mainFrame,
     text="hex",
     fg="white",
-    # image=log_btnimage,
+    image=heximage,
     bd=0,
     bg="black",
     cursor="hand2",
@@ -593,6 +602,34 @@ ee = Button(
 )
 ee.grid(row=10, column=1, padx=1, pady=1)
 
+bracket1 = PhotoImage(file=r"images\bracket1.png")
+bracket1_image = bracket1.subsample(4, 4)
+bracket1 = Button(
+    mainFrame,
+    text="(",
+    fg="black",
+    image=bracket1_image,
+    bd=0,
+    bg="black",
+    cursor="hand2",
+    command=lambda: clickButton("("),
+)
+bracket1.grid(row=10, column=2, padx=1, pady=1)
+
+bracket2 = PhotoImage(file=r"images\bracket2.png")
+bracket2_image = bracket2.subsample(4, 4)
+bracket2 = Button(
+    mainFrame,
+    text=")",
+    fg="black",
+    image=bracket2_image,
+    bd=0,
+    bg="black",
+    cursor="hand2",
+    command=lambda: clickButton(")"),
+)
+bracket2.grid(row=10, column=3, padx=1, pady=1)
+
 
 def simple():
     sin_btn.grid_forget()
@@ -609,6 +646,8 @@ def simple():
     btn_hex.grid_forget()
     pi.grid_forget()
     ee.grid_forget()
+    bracket1.grid_forget()
+    bracket2.grid_forget()
 
 
 def extend():
@@ -626,6 +665,8 @@ def extend():
     btn_hex.grid(row=9, column=3, padx=1, pady=1)
     pi.grid(row=10, column=0, padx=1, pady=1)
     ee.grid(row=10, column=1, padx=1, pady=1)
+    bracket1.grid(row=10, column=2, padx=1, pady=1)
+    bracket2.grid(row=10, column=3, padx=1, pady=1)
 
 
 window.iconbitmap("images\icon.ico")
