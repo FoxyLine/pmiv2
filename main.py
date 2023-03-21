@@ -6,6 +6,7 @@ from translate import Trans
 
 theme_map = {"yagami light": "theme_1", "L": "images", "Ryuk": "theme_2"}
 state = ''
+
 def main():
     global screenSize
     global state
