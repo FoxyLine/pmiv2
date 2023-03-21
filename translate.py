@@ -36,6 +36,10 @@ class Trans:
         self.lang = lang
 
     @property
+    def calc(self):
+        return "Калькулятор" if self.lang == "ru" else "Сalculator"
+
+    @property
     def find(self):
         return "Поиск:" if self.lang == "ru" else "Find:"
 
@@ -156,8 +160,8 @@ class Trans:
         return "Вид" if self.lang == "ru" else "View"
 
     @property
-    def help(self):
-        return "Помощь" if self.lang == "ru" else "Help"
+    def help_s(self):
+        return "Справка" if self.lang == "ru" else "Help"
 
     @property
     def about(self):
@@ -193,7 +197,7 @@ class Trans:
 
     @property
     def children(self):
-        return "Детская" if self.lang == "ru" else "children"
+        return "Детская" if self.lang == "ru" else "Children"
 
     @property
     def sntx(self):

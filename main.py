@@ -2,12 +2,13 @@ from tkinter import *
 from tkinter import messagebox
 from math import pi, e, sin, cos, tan, log, log2, log10, factorial
 import configparser
-from trans import Trans
+from translate import Trans
 
 theme_map = {"yagami light": "theme_1", "L": "images", "Ryuk": "theme_2"}
-
+state = ''
 def main():
     global screenSize
+    global state
     smoll = "290x508"
     window = Tk()
 
@@ -28,6 +29,8 @@ def main():
     folder_theme = theme_map[theme]
 
     def change_theme(theme_name):
+        global state
+        state = inputText.get()
         window.destroy()
         config.set("settings", "theme", theme_name)
         with open("settings.ini", "w") as configfile:
@@ -48,11 +51,22 @@ def main():
             "© Правая палочка Твикс (ФГБОУ ВО «МАГУ»), 2023."
         )
 
+    def help_syn():
+        messagebox.showinfo(
+            t.help_s,
+            "Режимы работы.\n\n"
+            "Простой: базовые арифметические операции, смена знака, проценты, возведение в квадрат, квадратный корень;\n"
+            "Расширенный: функции простого калькулятора, тригонометрические функции, возведение в произвольную степень, логарифмы (натуральный и десятичный), модуль числа, факториал числа, перевод в системы счисления (2, 3, 4, 5, 6, 7, 8)."
+        )
+
 
     def clickButton(item):
         global expression
         inputText.set(inputText.get() + (str(item)))
 
+    def powuwu():
+        inputText.set('(' + inputText.get() + ')' + '**2')
+        equalButton()
 
     def evalute(item):
         clickButton(item)
@@ -108,21 +122,30 @@ def main():
             result = "ERROR..."
             inputText.set(result)
 
+    def copy(*args):
+        global sel
+        sel = inputText.get()
+        window.clipboard = sel
+
+    def paste(*args):
+        global sel
+        inputText.set(inputText.get() + sel)
 
     # menubar
     menubar = Menu(window, bg="white", fg="white")
     filemenu = Menu(menubar, tearoff=0, bg=bg_color, fg="white")
-    filemenu.add_command(label=t.copy)
-    filemenu.add_command(label=t.exit)
+    filemenu.add_command(label=t.copy, command=copy)
+    filemenu.add_command(label=t.paste, command=paste)
     filemenu.add_separator()
     filemenu.add_command(label=t.exit, command=window.quit)
-    menubar.add_cascade(label=t.exit, menu=filemenu)
+    menubar.add_cascade(label=t.calc, menu=filemenu)
     helpmenu = Menu(menubar, tearoff=0, bg=bg_color, fg="white")
     helpmenu.add_command(label=t.about, command=about)
+    helpmenu.add_command(label=t.help_s, command=help_syn)
     mode_menu = Menu(menubar, tearoff=0, bg=bg_color, fg="white")
-    mode_menu.add_command(label=t.simple, command=lambda: simple())
-    mode_menu.add_command(label=t.extend, command=lambda: extend())
-    menubar.add_cascade(label=t.help, menu=helpmenu)
+    mode_menu.add_command(label=t.simple, command=lambda: expand())
+    mode_menu.add_command(label=t.extend, command=lambda: expand())
+    menubar.add_cascade(label=t.help_s, menu=helpmenu)
     menubar.add_cascade(label=t.mode, menu=mode_menu)
 
 
@@ -135,11 +158,12 @@ def main():
 
     lang_menu = Menu(menubar, tearoff=0, bg=bg_color, fg="white")
     lang_menu.add_command(label="Русский", command=lambda: change_lang("ru"))
-    lang_menu.add_command(label="Eng", command=lambda:  change_lang("eng"))
+    lang_menu.add_command(label="English", command=lambda:  change_lang("eng"))
     menubar.add_cascade(label=t.langauge, menu=lang_menu)
 
     expression = ""
     inputText = StringVar()
+    inputText.set(state)
 
     inputFrame = Frame(
         window,
@@ -147,7 +171,7 @@ def main():
         height=50,
         bd=0,
         highlightbackground="black",
-        highlightcolor="gray",
+        highlightcolor="grey",
         highlightthickness=2,
     )
     inputFrame.pack(side=TOP)
@@ -432,7 +456,7 @@ def main():
         bd=0,
         bg=bg_color,
         cursor="hand2",
-        command=lambda: evalute("**2"),
+        command=lambda: powuwu(),
     ).grid(row=5, column=0, padx=1, pady=1)
 
     sqrt_btn = PhotoImage(file=f"{folder_theme}\\root_btn.png")
@@ -519,19 +543,19 @@ def main():
     )
     tan_btn.grid(row=7, column=2, padx=1, pady=1)
 
-    log_btn = PhotoImage(file=f"{folder_theme}\\log_btn.png")
-    log_btnimage = log_btn.subsample(4, 4)
-    log_btn = Button(
-        mainFrame,
-        text="log",
-        fg="black",
-        image=log_btnimage,
-        bd=0,
-        bg=bg_color,
-        cursor="hand2",
-        command=lambda: clickButton("log("),
-    )
-    log_btn.grid(row=7, column=3, padx=1, pady=1)
+    # log_btn = PhotoImage(file=f"{folder_theme}\\log_btn.png")
+    # log_btnimage = log_btn.subsample(4, 4)
+    # log_btn = Button(
+    #     mainFrame,
+    #     text="log",
+    #     fg="black",
+    #     image=log_btnimage,
+    #     bd=0,
+    #     bg=bg_color,
+    #     cursor="hand2",
+    #     command=lambda: clickButton("log("),
+    # )
+    # log_btn.grid(row=7, column=3, padx=1, pady=1)
 
 
     pow_y = PhotoImage(file=f"{folder_theme}\\pow_y_btn.png")
@@ -720,7 +744,7 @@ def main():
         bnt_fact.grid_forget()
         btn_bin.grid_forget()
         btn_abs.grid_forget()
-        log_btn.grid_forget()
+        # log_btn.grid_forget()
         btn_oct.grid_forget()
         btn_hex.grid_forget()
         pi.grid_forget()
@@ -739,7 +763,7 @@ def main():
         bnt_fact.grid(row=9, column=0, padx=1, pady=1)
         btn_bin.grid(row=9, column=1, padx=1, pady=1)
         btn_abs.grid(row=8, column=3, padx=1, pady=1)
-        log_btn.grid(row=7, column=3, padx=1, pady=1)
+        # log_btn.grid(row=7, column=3, padx=1, pady=1)
         btn_oct.grid(row=9, column=2, padx=1, pady=1)
         btn_hex.grid(row=9, column=3, padx=1, pady=1)
         pi.grid(row=10, column=0, padx=1, pady=1)
